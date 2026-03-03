@@ -2,7 +2,11 @@
 let menu = [
     { nombre: "Arroz con pollo", precio: 12, stock: 5 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
-    { nombre: "Sopa", precio: 8, stock: 10 }
+    { nombre: "Sopa", precio: 8, stock: 10 },
+    // 2 platos mas
+    { nombre: "chaufa", precio: 12, stock: 7 },
+    { nombre: "Aji de gallina", precio: 11, stock: 6 }
+
 ];
 
 // 2) FUNCIÓN: renderizar (mostrar) el menú en pantalla
@@ -24,7 +28,7 @@ function renderMenu() {
 
 // 3) FUNCIÓN: agregar un plato demo al menú
 function agregarPlatoDemo() {
-    const nuevoPlato = { nombre: "Pollo a la brasa", precio: 20, stock: 4 };
+    const nuevoPlato = { nombre: "Tallarin saltado", precio: 15, stock: 2 };
     menu.push(nuevoPlato);
 }
 
