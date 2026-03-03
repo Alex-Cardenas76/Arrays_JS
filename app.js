@@ -9,13 +9,22 @@ let menu = [
 
 ];
 
+    
+function contarPlatos(array){
+    let total = 0;
+    total=array.length;    
+    return total;
+}
+
 // 2) FUNCIÓN: renderizar (mostrar) el menú en pantalla
 function renderMenu() {
     const output = document.getElementById("output");
     output.innerHTML = ""; // limpiar
+    let html = "<h2>Total de platos en el menú: "+contarPlatos(menu)+"</h2>";
+
 
     // crear una lista HTML simple
-    let html = "<ul>";
+    html += "<ul>";
 
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
