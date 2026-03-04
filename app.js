@@ -53,4 +53,31 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
 
 
 
+// FUNCIONES DE BUSQUEDA
+function buscarPlatoPorNombre() {
+    let nombreP = document.getElementById("inputBuscar").value
+    let resultado = menu.find(plato => plato.nombre === nombreP)
+    if (resultado) {
+        let html = "<p>" + resultado.nombre + " - S/ " + resultado.precio + " - Stock: " + resultado.stock + "</p>"
+        document.getElementById("R_Busqueda").innerHTML = html;
+    }
+    else {
+        let html = "<p>No encontrado</p>"
+        document.getElementById("R_Busqueda").innerHTML = html;
+    }
+}
+
+function filtrarPlatosStockBajo() {
+    let html = menu.filter(plato => plato.stock <= 3)
+    document.getElementById("R_StockBajo").innerHTML = "";
+    for (let i = 0; i < html.length; i++) {
+        let ray = "<p>" + html[i].nombre + " - S/ " + html[i].precio + " - Stock: " + html[i].stock + "</p>"
+        document.getElementById("R_StockBajo").innerHTML += ray;
+
+    }
+}
+
+
+
+
 
