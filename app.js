@@ -78,6 +78,25 @@ function filtrarPlatosStockBajo() {
 }
 
 
+function obtenerResumenMenu() {
+    const resumen = document.getElementById("R_Resumen");
+    resumen.innerHTML = ""; // limpiar
+
+    // crear una lista HTML simple
+    let html = "<ul>";
+    let lajija = menu.map(plato => plato.nombre + " - S/ " + plato.precio)
+
+
+    for (let i = 0; i < lajija.length; i++) {
+        const plato = lajija[i];
+        html += `<li>${plato}</li>`;
+    }
+
+    html += "</ul>";
+    resumen.innerHTML = html;
+
+}
+
 
 
 
