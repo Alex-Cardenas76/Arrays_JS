@@ -51,6 +51,23 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
     renderMenu();
 });
 
+document.getElementById("btnResumen").addEventListener("click", () => {
+    obtenerResumenMenu();
+
+});
+
+document.getElementById("btnBuscar").addEventListener("click", () => {
+    buscarPlatoPorNombre();
+
+});
+
+document.getElementById("btnStockBajo").addEventListener("click", () => {
+    filtrarPlatosStockBajo();
+
+});
+
+
+
 
 
 // FUNCIONES DE BUSQUEDA
