@@ -1,6 +1,6 @@
 // 1) VARIABLES + OBJETOS + ARRAYS
 let menu = [
-    { nombre: "Arroz con pollo", precio: 12, stock: 2 },
+    { nombre: "Arroz con pollo", precio: 12, stock: 7 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
     { nombre: "Sopa", precio: 8, stock: 1 },
     // 2 platos mas
@@ -33,6 +33,7 @@ function renderMenu() {
 
     html += "</ul>";
     output.innerHTML = html;
+    return html;
 }
 
 // 3) FUNCIÓN: agregar un plato demo al menú
@@ -63,6 +64,16 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
 
 document.getElementById("btnStockBajo").addEventListener("click", () => {
     filtrarPlatosStockBajo();
+
+});
+
+document.getElementById("btnVender").addEventListener("click", () => {
+    let nombre = document.getElementById("inputBuscar").value
+    let cantidad = document.getElementById("inputCantidad").value
+    let mensaje = venderPlato(nombre,cantidad);
+    let menu=renderMenu();
+    document.getElementById("output").innerHTML = menu + mensaje;
+    
 
 });
 
@@ -116,3 +127,18 @@ function renderLista(titulo, listaDeTextos) {
 }
 
 //USANDO EL CEREBRO
+
+
+function venderPlato(nombre,cantidad) {
+    let mensaje = ""
+    let plato = menu.find(plato => plato.nombre === nombre)
+
+    if (plato && (plato.stock) >= (cantidad) && cantidad>0) {
+        plato.stock = plato.stock - cantidad
+        mensaje="Venta realizada exitosamente"
+    }else{
+        mensaje="No hay stock suficiente" 
+    }
+    return mensaje
+   
+}
