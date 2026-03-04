@@ -1,18 +1,18 @@
 // 1) VARIABLES + OBJETOS + ARRAYS
 let menu = [
-    { nombre: "Arroz con pollo", precio: 12, stock: 5 },
+    { nombre: "Arroz con pollo", precio: 12, stock: 2 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
-    { nombre: "Sopa", precio: 8, stock: 10 },
+    { nombre: "Sopa", precio: 8, stock: 1 },
     // 2 platos mas
     { nombre: "chaufa", precio: 12, stock: 7 },
     { nombre: "Aji de gallina", precio: 11, stock: 6 }
 
 ];
 
-    
-function contarPlatos(array){
+
+function contarPlatos(array) {
     let total = 0;
-    total=array.length;    
+    total = array.length;
     return total;
 }
 
@@ -20,7 +20,7 @@ function contarPlatos(array){
 function renderMenu() {
     const output = document.getElementById("output");
     output.innerHTML = ""; // limpiar
-    let html = "<h2>Total de platos en el menú: "+contarPlatos(menu)+"</h2>";
+    let html = "<h2>Total de platos en el menú: " + contarPlatos(menu) + "</h2>";
 
 
     // crear una lista HTML simple
@@ -50,3 +50,7 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
     agregarPlatoDemo();
     renderMenu();
 });
+
+
+
+
