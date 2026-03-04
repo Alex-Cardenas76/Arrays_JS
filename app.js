@@ -58,8 +58,9 @@ function buscarPlatoPorNombre() {
     let nombreP = document.getElementById("inputBuscar").value
     let resultado = menu.find(plato => plato.nombre === nombreP)
     if (resultado) {
-        let html = "<p>" + resultado.nombre + " - S/ " + resultado.precio + " - Stock: " + resultado.stock + "</p>"
-        document.getElementById("R_Busqueda").innerHTML = html;
+        //sin map
+        let resultadoTexto = [resultado.nombre + " - S/ " + resultado.precio + " - Stock: " + resultado.stock]
+        renderLista("Plato encontrado", resultadoTexto)
     }
     else {
         let html = "<p>No encontrado</p>"
@@ -69,34 +70,32 @@ function buscarPlatoPorNombre() {
 
 function filtrarPlatosStockBajo() {
     let html = menu.filter(plato => plato.stock <= 3)
-    document.getElementById("R_StockBajo").innerHTML = "";
-    for (let i = 0; i < html.length; i++) {
-        let ray = "<p>" + html[i].nombre + " - S/ " + html[i].precio + " - Stock: " + html[i].stock + "</p>"
-        document.getElementById("R_StockBajo").innerHTML += ray;
+    let erre =html.map(plato => plato.nombre + " - S/ " + plato.precio + " - Stock: " + plato.stock)
+    renderLista("Platos con stock bajo", erre)
 
-    }
+    
 }
 
 
 function obtenerResumenMenu() {
-    const resumen = document.getElementById("R_Resumen");
-    resumen.innerHTML = ""; // limpiar
-
-    // crear una lista HTML simple
-    let html = "<ul>";
     let lajija = menu.map(plato => plato.nombre + " - S/ " + plato.precio)
-
-
-    for (let i = 0; i < lajija.length; i++) {
-        const plato = lajija[i];
-        html += `<li>${plato}</li>`;
-    }
-
-    html += "</ul>";
-    resumen.innerHTML = html;
+    renderLista("Resumen del Menu", lajija)
 
 }
 
 
+//PARTE C
+function renderLista(titulo, listaDeTextos) {
+    const contenedor = document.getElementById("output");
+    contenedor.innerHTML = "";
 
+    let html = "<h2>" + titulo + "</h2>";
+    html += "<ul>";
+    for (let i = 0; i < listaDeTextos.length; i++) {
+        html += "<li>" + listaDeTextos[i] + "</li>";
+    }
+    html += "</ul>";
+    contenedor.innerHTML = html;
+}
 
+//USANDO EL CEREBRO
