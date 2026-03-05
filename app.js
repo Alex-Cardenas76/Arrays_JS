@@ -5,9 +5,10 @@ let menu = [
     { nombre: "Sopa", precio: 8, stock: 1 },
     // 2 platos mas
     { nombre: "chaufa", precio: 12, stock: 7 },
-    { nombre: "Aji de gallina", precio: 11, stock: 6 }
+    { nombre: "Aji de gallina", precio: 11, stock: 0 }
 
 ];
+
 
 
 function contarPlatos(array) {
@@ -28,7 +29,15 @@ function renderMenu() {
 
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
-        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
+        let estado = " "
+        if (plato.stock == 0) {
+            estado = "agotado";
+        } else if (plato.stock <= 3) {
+            estado = "bajo";
+        } else {
+            estado = "normal";
+        }
+        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock} - ${estado}</li>`;
     }
 
     html += "</ul>";
@@ -70,10 +79,10 @@ document.getElementById("btnStockBajo").addEventListener("click", () => {
 document.getElementById("btnVender").addEventListener("click", () => {
     let nombre = document.getElementById("inputBuscar").value
     let cantidad = document.getElementById("inputCantidad").value
-    let mensaje = venderPlato(nombre,cantidad);
-    let menu=renderMenu();
+    let mensaje = venderPlato(nombre, cantidad);
+    let menu = renderMenu();
     document.getElementById("output").innerHTML = menu + mensaje;
-    
+
 
 });
 
@@ -98,10 +107,10 @@ function buscarPlatoPorNombre() {
 
 function filtrarPlatosStockBajo() {
     let html = menu.filter(plato => plato.stock <= 3)
-    let erre =html.map(plato => plato.nombre + " - S/ " + plato.precio + " - Stock: " + plato.stock)
+    let erre = html.map(plato => plato.nombre + " - S/ " + plato.precio + " - Stock: " + plato.stock)
     renderLista("Platos con stock bajo", erre)
 
-    
+
 }
 
 
@@ -129,16 +138,16 @@ function renderLista(titulo, listaDeTextos) {
 //USANDO EL CEREBRO
 
 
-function venderPlato(nombre,cantidad) {
+function venderPlato(nombre, cantidad) {
     let mensaje = ""
     let plato = menu.find(plato => plato.nombre === nombre)
 
-    if (plato && (plato.stock) >= (cantidad) && cantidad>0) {
+    if (plato && (plato.stock) >= (cantidad) && cantidad > 0) {
         plato.stock = plato.stock - cantidad
-        mensaje="Venta realizada exitosamente"
-    }else{
-        mensaje="No hay stock suficiente" 
+        mensaje = "Venta realizada exitosamente"
+    } else {
+        mensaje = "No hay stock suficiente"
     }
     return mensaje
-   
+
 }
