@@ -145,12 +145,18 @@ function venderPlato(nombre, cantidad) {
     let mensaje = ""
     let plato = menu.find(plato => plato.nombre === nombre)
 
-    if (plato && (plato.stock) >= (cantidad) && cantidad > 0) {
-        plato.stock = plato.stock - cantidad
-        mensaje = "Venta realizada exitosamente"
-    } else {
-        mensaje = "No hay stock suficiente"
+    if (plato && (plato.stock) >= (cantidad)) {
+        if (cantidad > 0) {
+            plato.stock = plato.stock - cantidad
+            mensaje = "Venta realizada exitosamente"
+
+        } else {mensaje = "Cantidad invalida"}
+
     }
+    else if (plato && plato.stock === 0) {mensaje = "No disponible"
+
+    }else {mensaje = "Plato no existe"}
+
     return mensaje
 
 }
