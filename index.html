@@ -1,18 +1,35 @@
 <!doctype html>
 <html lang="es">
+
 <head>
- <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>Don Pollo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Don Pollo</title>
 </head>
+
 <body>
- <h1>Menú del Restaurante Don Pollo</h1>
+    <h1>Menú del Restaurante Don Pollo</h1>
 
- <button id="btnMostrar">Mostrar menú</button>
- <button id="btnAgregar">Agregar plato demo</button>
+    <button id="btnMostrar">Mostrar menú</button>
+    <button id="btnAgregar">Agregar plato demo</button>
 
- <div id="output"></div>
+    <div id="output"></div>
+    <hr>
 
- <script src="./app.js"></script>
+    <h2>Herramientas</h2>
+
+    <input id="inputBuscar" placeholder="Buscar plato por nombre" />
+    <input id="inputCantidad" type="number" min="1" placeholder="Cantidad" />
+
+    <button id="btnBuscar">Buscar</button>
+    <button id="btnStockBajo">Ver stock bajo (&lt;= 3)</button>
+    <button id="btnResumen">Ver resumen</   button>
+    <button id="btnVender">Vender</button>
+
+    
+
+
+    <script src="./app.js"></script>
 </body>
+
 </html>
