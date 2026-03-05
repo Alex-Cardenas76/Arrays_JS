@@ -5,7 +5,7 @@ let menu = [
     { nombre: "Sopa", precio: 8, stock: 9 },
     // 2 platos mas
     { nombre: "chaufa", precio: 12, stock: 7 },
-    { nombre: "Aji de gallina", precio: 11, stock: 0 }
+    { nombre: "Aji de gallina", precio: 11, stock: 3 }
 
 ];
 
@@ -160,3 +160,31 @@ function venderPlato(nombre, cantidad) {
     return mensaje
 
 }
+
+function verificarEstadoGeneral(){
+    let cagotado = 0
+    let cstockbajo = 0
+    let cnormal = 0
+    for (let i = 0; i < menu.length; i++) {
+        const plato = menu[i];
+
+        if (plato.stock === 0) {cagotado++}
+
+        else if (plato.stock <= 3) {cstockbajo++}
+        
+        else {cnormal++}
+    }
+    
+    let mensaje = "";
+    
+    if (cagotado > 0) {
+        mensaje = "Hay platos agotados";
+    } else if (cstockbajo > 0) {
+        mensaje = "Hay platos con stock bajo";
+    } else {
+        mensaje = "Todo disponible";
+    }
+    
+    return mensaje;
+}
+console.log(verificarEstadoGeneral())
