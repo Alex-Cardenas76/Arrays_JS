@@ -2,7 +2,7 @@
 let menu = [
     { nombre: "Arroz con pollo", precio: 12, stock: 7 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
-    { nombre: "Sopa", precio: 8, stock: 1 },
+    { nombre: "Sopa", precio: 8, stock: 9 },
     // 2 platos mas
     { nombre: "chaufa", precio: 12, stock: 7 },
     { nombre: "Aji de gallina", precio: 11, stock: 0 }
@@ -31,11 +31,11 @@ function renderMenu() {
         const plato = menu[i];
         let estado = " "
         if (plato.stock == 0) {
-            estado = "agotado";
+            estado = "❌agotado";
         } else if (plato.stock <= 3) {
-            estado = "bajo";
+            estado = "⚠️bajo";
         } else {
-            estado = "normal";
+            estado = "🟢normal";
         }
         html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock} - ${estado}</li>`;
     }
