@@ -31,13 +31,16 @@ function renderMenu() {
         const plato = menu[i];
         let estado = " "
         if (plato.stock == 0) {
-            estado = "❌agotado";
+            estado = "agotado";
+
         } else if (plato.stock <= 3) {
-            estado = "⚠️bajo";
+            estado = "bajo";
+
         } else {
-            estado = "🟢normal";
+            estado = "normal";
+
         }
-        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock} - ${estado}</li>`;
+        html += `<li class="${estado}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock} - ${estado}</li>`;
     }
 
     html += "</ul>";
