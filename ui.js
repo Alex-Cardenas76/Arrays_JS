@@ -76,13 +76,23 @@ export function conectarEventos() {
     });
 
     document.getElementById("btnVender").addEventListener("click", async () => {
+        
+
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
-        let Mensaje = await venderPlatoAsync(nombre, cantidad);
-        let tmenu = renderMenu();
-        document.getElementById("output").innerHTML = tmenu + Mensaje;
-
-
+        try {
+            mostrarMensaje("Procesando pedido...");
+            const mensaje = await venderPlatoAsync(nombre, cantidad);
+            
+            mostrarMensaje(mensaje);
+        } catch (error) {
+            mostrarMensaje(error);
+        }
+        
     });
-
+    function mostrarMensaje(texto) {
+        const contenedor = document.getElementById("output");
+        renderMenu();
+        contenedor.innerHTML += "<p>" + texto + "</p>";
+}
 }

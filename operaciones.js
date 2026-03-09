@@ -43,17 +43,17 @@ export function venderPlato(nombre, cantidad) {
             newMensaje.mensaje = "Venta realizada exitosamente"
 
         } else {
-            newMensaje.ok = true;
+            newMensaje.ok = false;
             newMensaje.mensaje = "Cantidad invalidaa"
         }
 
     }
     else if (plato && plato.stock < cantidad) {
-        newMensaje.ok = true;
+        newMensaje.ok = false;
         newMensaje.mensaje = "Platos insuficientes disponibles"
 
     } else {
-        newMensaje.ok = true;
+        newMensaje.ok = false;
         newMensaje.mensaje = "Plato no existe"
     }
 
