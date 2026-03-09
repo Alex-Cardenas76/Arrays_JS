@@ -44,7 +44,7 @@ export function venderPlato(nombre, cantidad) {
 
         } else {
             newMensaje.ok = true;
-            newMensaje.mensaje = "Cantidad invalida"
+            newMensaje.mensaje = "Cantidad invalidaa"
         }
 
     }

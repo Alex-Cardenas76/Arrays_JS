@@ -1,6 +1,7 @@
 import { menu, agregarPlatoDemo } from "./menu.js";
 import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, venderPlato } from "./operaciones.js";
 import { contarPlatos } from "./operaciones.js";
+import { venderPlatoAsync } from "./operaciones.js";
 
 // 2) FUNCIÓN: renderizar (mostrar) el menú en pantalla
 export function renderMenu() {
@@ -74,12 +75,12 @@ export function conectarEventos() {
 
     });
 
-    document.getElementById("btnVender").addEventListener("click", () => {
+    document.getElementById("btnVender").addEventListener("click", async () => {
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
-        let mensaje = venderPlato(nombre, cantidad);
+        let Mensaje = await venderPlatoAsync(nombre, cantidad);
         let tmenu = renderMenu();
-        document.getElementById("output").innerHTML = tmenu + mensaje;
+        document.getElementById("output").innerHTML = tmenu + Mensaje;
 
 
     });
