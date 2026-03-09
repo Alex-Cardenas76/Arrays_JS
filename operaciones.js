@@ -33,25 +33,46 @@ export function obtenerResumenMenu() {
 
 
 export function venderPlato(nombre, cantidad) {
-    let mensaje = ""
+    let newMensaje = { ok: true, mensaje: "" }
     let plato = menu.find(plato => plato.nombre === nombre)
 
     if (plato && (plato.stock) >= (cantidad)) {
         if (cantidad > 0) {
             plato.stock = plato.stock - cantidad
-            mensaje = "Venta realizada exitosamente"
+            newMensaje.ok = true;
+            newMensaje.mensaje = "Venta realizada exitosamente"
 
-        } else { mensaje = "Cantidad invalida" }
+        } else {
+            newMensaje.ok = true;
+            newMensaje.mensaje = "Cantidad invalida"
+        }
 
     }
     else if (plato && plato.stock < cantidad) {
-        mensaje = "Platos insuficientes disponibles"
+        newMensaje.ok = true;
+        newMensaje.mensaje = "Platos insuficientes disponibles"
 
-    } else { mensaje = "Plato no existe" }
+    } else {
+        newMensaje.ok = true;
+        newMensaje.mensaje = "Plato no existe"
+    }
 
-    return mensaje
+    return newMensaje
 
 }//////
+/*La B */
+export async function venderPlatoAsync(nombre, cantidad) {
+    const resultado = venderPlato(nombre, cantidad);
+
+    if (!resultado.ok) {
+        throw new Error(resultado.mensaje);
+    }
+    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+    return respuesta;
+}
+
+
+
 
 export function verificarEstadoGeneral() {
     let cagotado = 0
@@ -88,14 +109,15 @@ export function contarPlatos(array) {
 }
 
 /*La A */
-export function simularRespuestaServidor(resultado) {
+export function simularRespuestaServidor(respuesta) {
+
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const falla = Math.random() < 0.3;
             if (falla) {
                 reject("Error del servidor simulado.");
             } else {
-                resolve(resultado);
+                resolve(respuesta);
             }
         }, 2000);
     });
