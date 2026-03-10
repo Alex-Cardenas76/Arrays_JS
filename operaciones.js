@@ -139,3 +139,9 @@ export class ErrorNegocio extends Error {
     }
 }
 
+export class EntradaInvalida extends Error {
+    constructor(mensaje) {
+        super(mensaje);
+        this.name = "EntradaInvalida";
+    }
+}

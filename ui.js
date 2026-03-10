@@ -1,5 +1,5 @@
 import { menu, agregarPlatoDemo } from "./menu.js";
-import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, ErrorNegocio } from "./operaciones.js";
+import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, ErrorNegocio, EntradaInvalida } from "./operaciones.js";
 import { contarPlatos } from "./operaciones.js";
 import { venderPlatoAsync } from "./operaciones.js";
 
@@ -65,6 +65,8 @@ export function conectarEventos() {
 
     });
 
+    
+
     document.getElementById("btnBuscar").addEventListener("click", () => {
         buscarPlatoPorNombre();
 
@@ -76,10 +78,33 @@ export function conectarEventos() {
     });
 
     document.getElementById("btnVender").addEventListener("click", async () => {
-
-
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
+        try{
+            if(nombre == "" && cantidad == ""){
+                throw new EntradaInvalida("Debe ingresar un nombre y una cantidad");
+            }
+            if(nombre == ""){
+                throw new EntradaInvalida("Debe ingresar un nombre");
+            }
+            if(cantidad == ""){
+                throw new EntradaInvalida("Debe ingresar una cantidad");
+            }
+            if(cantidad <= 0){
+                throw new EntradaInvalida("La cantidad debe ser mayor a 0");
+            }
+            if(isNaN(cantidad)){
+                throw new EntradaInvalida("La cantidad debe ser un numero");
+            }
+
+        }
+        catch(error){
+            mostrarMensaje("error", error.message);
+            return;
+        }
+
+
+        
         try {
             mostrarMensaje("espera", "Procesando pedido...");
             const mensaje = await venderPlatoAsync(nombre, cantidad);
@@ -102,3 +127,4 @@ export function conectarEventos() {
         contenedor.innerHTML += `<p class="${estado}">${texto}</p>`
     }
 }
+
