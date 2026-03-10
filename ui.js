@@ -1,5 +1,5 @@
 import { menu, agregarPlatoDemo } from "./menu.js";
-import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, venderPlato } from "./operaciones.js";
+import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, ErrorNegocio } from "./operaciones.js";
 import { contarPlatos } from "./operaciones.js";
 import { venderPlatoAsync } from "./operaciones.js";
 
@@ -76,23 +76,29 @@ export function conectarEventos() {
     });
 
     document.getElementById("btnVender").addEventListener("click", async () => {
-        
+
 
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
         try {
             mostrarMensaje("espera", "Procesando pedido...");
             const mensaje = await venderPlatoAsync(nombre, cantidad);
-            
-            mostrarMensaje("exito",mensaje);
+
+            mostrarMensaje("exito", mensaje);
         } catch (error) {
-            mostrarMensaje("error",error);
+            if (error.name === "ErrorNegocio") {
+                mostrarMensaje("error", "Advertencia: " + error.message);
+            } else {
+                mostrarMensaje("error", "Error del sistema: " + error.message);
+
+            }
         }
-        
+
+
     });
-    function mostrarMensaje(estado,texto) {
+    function mostrarMensaje(estado, texto) {
         const contenedor = document.getElementById("output");
         renderMenu();
         contenedor.innerHTML += `<p class="${estado}">${texto}</p>`
-}
+    }
 }
