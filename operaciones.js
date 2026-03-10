@@ -67,13 +67,9 @@ export function venderPlato(nombre, cantidad) {
 export async function venderPlatoAsync(nombre, cantidad) {
     let plato = menu.find(plato => plato.nombre === nombre)
 
-    if (!plato) {
-        throw new ErrorNegocio("Plato no encontrado");
-    } if (plato.stock < cantidad) {
+    if (plato.stock < cantidad) {
         throw new ErrorNegocio("Platos insuficientes disponibles");
-    } if (cantidad <= 0) {
-        throw new ErrorNegocio("Cantidad invalida");
-    }
+    } 
 
     const respuesta = await simularRespuestaServidor("Venta realizada exitosamente");
     plato.stock = plato.stock - cantidad;
@@ -139,7 +135,7 @@ export class ErrorNegocio extends Error {
     }
 }
 
-export class EntradaInvalida extends Error {
+export class EntradaInvalida  extends Error {
     constructor(mensaje) {
         super(mensaje);
         this.name = "EntradaInvalida";
