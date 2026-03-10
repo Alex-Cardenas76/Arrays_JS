@@ -31,7 +31,7 @@ export function obtenerResumenMenu() {
 
 }
 
-
+/* 
 export function venderPlato(nombre, cantidad) {
     let newMensaje = { ok: true, mensaje: "" }
     let plato = menu.find(plato => plato.nombre === nombre)
@@ -59,15 +59,20 @@ export function venderPlato(nombre, cantidad) {
 
     return newMensaje
 
-}//////
+    
+
+}//////*/
+
 /*La B */
 export async function venderPlatoAsync(nombre, cantidad) {
-    const resultado = venderPlato(nombre, cantidad);
+    let plato = menu.find(plato => plato.nombre === nombre)
 
-    if (!resultado.ok) {
-        throw new Error(resultado.mensaje);
-    }
-    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+    if (plato.stock < cantidad) {
+        throw new ErrorNegocio("Platos insuficientes disponibles");
+    } 
+
+    const respuesta = await simularRespuestaServidor("Venta realizada exitosamente");
+    plato.stock = plato.stock - cantidad;
     return respuesta;
 }
 
@@ -115,7 +120,7 @@ export function simularRespuestaServidor(respuesta) {
         setTimeout(() => {
             const falla = Math.random() < 0.3;
             if (falla) {
-                reject("Error del servidor simulado.");
+                reject(new Error("Error del servidor simulado."));
             } else {
                 resolve(respuesta);
             }
@@ -123,3 +128,16 @@ export function simularRespuestaServidor(respuesta) {
     });
 }
 
+export class ErrorNegocio extends Error {
+    constructor(mensaje) {
+        super(mensaje);
+        this.name = "ErrorNegocio";
+    }
+}
+
+export class EntradaInvalida  extends Error {
+    constructor(mensaje) {
+        super(mensaje);
+        this.name = "EntradaInvalida";
+    }
+}

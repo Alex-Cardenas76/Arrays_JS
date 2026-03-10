@@ -1,5 +1,5 @@
 import { menu, agregarPlatoDemo } from "./menu.js";
-import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, venderPlato } from "./operaciones.js";
+import { buscarPlatoPorNombre, filtrarPlatosStockBajo, obtenerResumenMenu, ErrorNegocio, EntradaInvalida } from "./operaciones.js";
 import { contarPlatos } from "./operaciones.js";
 import { venderPlatoAsync } from "./operaciones.js";
 
@@ -65,6 +65,8 @@ export function conectarEventos() {
 
     });
 
+    
+
     document.getElementById("btnBuscar").addEventListener("click", () => {
         buscarPlatoPorNombre();
 
@@ -76,23 +78,53 @@ export function conectarEventos() {
     });
 
     document.getElementById("btnVender").addEventListener("click", async () => {
-        
-
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
+        try{
+            if(nombre == "" && cantidad == ""){
+                throw new EntradaInvalida("Debe ingresar un nombre y una cantidad");
+            }
+            if(nombre == ""){
+                throw new EntradaInvalida("Debe ingresar un nombre");
+            }
+            if(cantidad == ""){
+                throw new EntradaInvalida("Debe ingresar una cantidad");
+            }
+            if(cantidad <= 0){
+                throw new EntradaInvalida("La cantidad debe ser mayor a 0");
+            }
+            if(isNaN(cantidad)){
+                throw new EntradaInvalida("La cantidad debe ser un numero");
+            }
+
+        }
+        catch(error){
+            mostrarMensaje("error", error.message);
+            return;
+        }
+
+
+        
         try {
             mostrarMensaje("espera", "Procesando pedido...");
             const mensaje = await venderPlatoAsync(nombre, cantidad);
-            
-            mostrarMensaje("exito",mensaje);
+
+            mostrarMensaje("exito", mensaje);
         } catch (error) {
-            mostrarMensaje("error",error);
+            if (error.name === "ErrorNegocio") {
+                mostrarMensaje("error", "Advertencia: " + error.message);
+            } else {
+                mostrarMensaje("error", "Error del sistema: " + error.message);
+
+            }
         }
-        
+
+
     });
-    function mostrarMensaje(estado,texto) {
+    function mostrarMensaje(estado, texto) {
         const contenedor = document.getElementById("output");
         renderMenu();
         contenedor.innerHTML += `<p class="${estado}">${texto}</p>`
+    }
 }
-}
+
