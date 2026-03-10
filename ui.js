@@ -81,18 +81,18 @@ export function conectarEventos() {
         let nombre = document.getElementById("inputBuscar").value
         let cantidad = document.getElementById("inputCantidad").value
         try {
-            mostrarMensaje("Procesando pedido...");
+            mostrarMensaje("espera", "Procesando pedido...");
             const mensaje = await venderPlatoAsync(nombre, cantidad);
             
-            mostrarMensaje(mensaje);
+            mostrarMensaje("exito",mensaje);
         } catch (error) {
-            mostrarMensaje(error);
+            mostrarMensaje("error",error);
         }
         
     });
-    function mostrarMensaje(texto) {
+    function mostrarMensaje(estado,texto) {
         const contenedor = document.getElementById("output");
         renderMenu();
-        contenedor.innerHTML += "<p>" + texto + "</p>";
+        contenedor.innerHTML += `<p class="${estado}">${texto}</p>`
 }
 }
